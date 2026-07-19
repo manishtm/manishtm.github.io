@@ -1,6 +1,6 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manish TM - CV / Resume</title>
@@ -49,7 +49,7 @@
         .header__logo a {
             display: inline-block;
             text-decoration: none;
-            font-size: 2rem;
+            font-size: 3rem;
             line-height: 1;
             font-family: var(--font-special);
             font-weight: var(--font-bold);
@@ -497,38 +497,38 @@
     </h4>
     <!-- Switch 1: Style Mode Structure Layout -->
     <div class="control-group">
-        <div class="control-header">Style: <span class="status-value" id="val-view">CV</span></div>
         <label class="labeled-switch">
             <input type="checkbox" id="view-toggle" onchange="handleViewToggle(this)">
             <span class="switch-slider" id="view-switch-track"></span>
         </label>
+        <div class="control-header">Style: <span class="status-value" id="val-view">CV</span></div>
     </div>
 
     <!-- Switch 2: Portrait Picture Component Visibility -->
     <div class="control-group">
-        <div class="control-header">Photo: <span class="status-value" id="val-photo">ON</span></div>
         <label class="labeled-switch">
             <input type="checkbox" id="photo-toggle" checked onchange="togglePhoto(this)">
             <span class="switch-slider" id="photo-switch-track"></span>
         </label>
+        <div class="control-header">Photo: <span class="status-value" id="val-photo">ON</span></div>
     </div>
 
     <!-- Switch 3: Core Executive Summary Visibility -->
     <div class="control-group">
-        <div class="control-header">Summary: <span class="status-value" id="val-summary">ON</span></div>
         <label class="labeled-switch">
             <input type="checkbox" id="summary-toggle" checked onchange="toggleSummary(this)">
             <span class="switch-slider" id="summary-switch-track"></span>
         </label>
+        <div class="control-header">Summary: <span class="status-value" id="val-summary">ON</span></div>
     </div>
 
     <!-- Switch 4: Canvas User Interface Color Themes -->
     <div class="control-group">
-        <div class="control-header">Theme: <span class="status-value" id="val-theme">☀️ Light</span></div>
         <label class="labeled-switch">
             <input type="checkbox" id="theme-toggle" onchange="toggleTheme(this)">
             <span class="switch-slider" id="theme-switch-track"></span>
         </label>
+        <div class="control-header">Theme: <span class="status-value" id="val-theme">☀️ Light</span></div>
     </div>
 
     <!-- PDF Processing Trigger Module -->
@@ -561,8 +561,8 @@
         <!-- Profile Summary Section -->
         <div class="section summary-section">
             <h2>Summary</h2>
-            <p class="cv-only">Dedicated and experienced Software Engineer with a strong background in software development, specializing in frameworks such as Laravel, CodeIgniter, WordPress and Golang. With a proven track record of delivering high-quality web applications, I am adept at leveraging cutting-edge technologies to meet and exceed client expectations. <br><br>I have a speech impediment (stammering) and identify as a person with disability, which I believe has helped me develop patience, resilience, and strong written communication skills. I communicate best in structured or written formats and may take a bit more time in verbal conversations. I am particularly interested in opportunities with inclusive organizations that value diversity and accessibility.</p>
-            <p class="resume-only">Dedicated and experienced Software Engineer with a strong background in software development, specializing in frameworks such as Laravel, CodeIgniter, WordPress and Golang. With a proven track record of delivering high-quality web applications, I am adept at leveraging cutting-edge technologies to meet and exceed client expectations.</p>
+            <p>Dedicated and experienced Software Engineer with a strong background in software development, specializing in frameworks such as Laravel, CodeIgniter, WordPress and Golang. With a proven track record of delivering high-quality web applications, I am adept at leveraging cutting-edge technologies to meet and exceed client expectations.I have a speech impediment (stammering) and identify as a person with disability, which I believe has helped me develop patience, resilience, and strong written communication skills.</p>
+            <p class="cv-only">I communicate best in structured or written formats and may take a bit more time in verbal conversations. I am particularly interested in opportunities with inclusive organizations that value diversity and accessibility.</p>
         </div>
 
         <!-- Professional Experience Block -->
@@ -575,7 +575,8 @@
                     <span>Nov 2024 – Apr 2026</span>
                 </div>
                 <div class="item-sub">Takyon System Solutions</div>
-                <ul class="item-bullets">
+
+                <ul class="item-bullets cv-only">
                     <li>Developed AI-powered applications for educational purposes using the AI APIs, enhancing learning experiences and accessibility.</li>
                     <li>Applied expertise in PHP, Golang to design and implement scalable solutions tailored to client requirements.</li>
                     <li>Collaborated with teams to integrate innovative AI functionalities into new and existing systems.</li>
@@ -591,7 +592,7 @@
                     <span>Sep 2023 – Apr 2024</span>
                 </div>
                 <div class="item-sub">Maple Tech Space</div>
-                <ul class="item-bullets">
+                <ul class="item-bullets cv-only">
                     <li>Developed and maintained robust web applications using Laravel, ensuring high performance and scalability.</li>
                     <li>Implemented Livewire components to enhance user interactivity and improve overall user experience.</li>
                     <li>Utilized FFMPEG to handle video processing and manipulation, enabling seamless integration of multimedia content.</li>
@@ -602,13 +603,13 @@
                 </ul>
             </div>
 
-            <div class="item cv-only">
+            <div class="item">
                 <div class="item-header">
                     <span>Software Developer</span>
                     <span>May 2022 – Mar 2023</span>
                 </div>
                 <div class="item-sub">Ginger Technologies</div>
-                <ul class="item-bullets">
+                <ul class="item-bullets cv-only">
                     <li>Developed and maintained PHP applications, specializing in Laravel projects, Facebook Graph APIs, and Gmail APIs.</li>
                     <li>Collaborated with cross-functional teams to gather requirements and deliver high-quality software solutions.</li>
                     <li>Implemented efficient and scalable code, ensuring optimal performance and user experience.</li>
@@ -620,13 +621,13 @@
                 </ul>
             </div>
 
-            <div class="item cv-only">
+            <div class="item">
                 <div class="item-header">
                     <span>Software Developer</span>
                     <span>Jun 2021 – Apr 2022</span>
                 </div>
                 <div class="item-sub">Webandcrafts</div>
-                <ul class="item-bullets">
+                <ul class="item-bullets cv-only">
                     <li>Developed and maintained PHP applications, specializing in Laravel and WordPress projects.</li>
                     <li>Collaborated with cross-functional teams to gather requirements and deliver high-quality solutions.</li>
                     <li>Implemented efficient and scalable code structures, ensuring optimal performance and maintainability.</li>
@@ -638,13 +639,13 @@
                 </ul>
             </div>
 
-            <div class="item cv-only">
+            <div class="item">
                 <div class="item-header">
                     <span>Software Developer</span>
                     <span>Jun 2018 – May 2021</span>
                 </div>
                 <div class="item-sub">ATEES Infomedia Pvt Ltd</div>
-                <ul class="item-bullets">
+                <ul class="item-bullets cv-only">
                     <li>Developed and maintained PHP applications, specializing in CodeIgniter and WordPress projects.</li>
                     <li>Collaborated with cross-functional teams to gather requirements and deliver high-quality solutions.</li>
                     <li>Implemented efficient and scalable code, ensuring optimal performance and user experience.</li>
@@ -667,14 +668,14 @@
                 </div>
                 <div class="item-sub">Amrita University</div>
             </div>
-            <div class="item cv-only">
+            <div class="item">
                 <div class="item-header">
                     <span>MBA, Information System Management</span>
                     <span>2019 – 2022</span>
                 </div>
                 <div class="item-sub">Bharathiar University</div>
             </div>
-            <div class="item cv-only">
+            <div class="item">
                 <div class="item-header">
                     <span>1-12, Computer Science (CBSE)</span>
                     <span>2000 – 2012</span>
@@ -728,7 +729,7 @@
             <h2>Projects</h2>
 
             <!-- Visible on both CV and Resume views -->
-            <div class="project-item">
+            <div class="project-item cv-only">
                 <div class="project-title"><a href="https://stogo.ai" target="_blank">StogoAI (stogo.ai) ↗</a></div>
                 <p class="project-desc">StogoAI is an AI-driven educational platform that automates the evaluation process by analyzing question papers, answer sheets, and answer keys using AI and OCR technologies. Worked as a PHP Developer and AI Integration Engineer developing backend systems using Laravel, integrating AI APIs for automated evaluation, and building dynamic components via JavaScript, jQuery, and AJAX. Also managed question mapping logic, resulting in faster evaluation turnaround times.</p>
                 <div class="skills-grid">
@@ -736,7 +737,7 @@
                 </div>
             </div>
 
-            <div class="project-item">
+            <div class="project-item cv-only">
                 <div class="project-title"><a href="https://thecanadianhome.com" target="_blank">The Canadian Home (thecanadianhome.com) ↗</a></div>
                 <p class="project-desc">Developed and maintained high-performance web applications using Laravel, ensuring scalability and reliability. Implemented Livewire components to enhance user interactivity and deliver a seamless user experience. Integrated FFMPEG for efficient video processing and multimedia handling. Leveraged Facebook Graph API to incorporate social media features, improving user engagement and reach.</p>
                 <div class="skills-grid">
@@ -744,9 +745,7 @@
                 </div>
             </div>
 
-            <!-- Deep CV list completely hidden on Resume view toggles -->
-            <div class="cv-only">
-                <div class="project-item">
+            <div class="project-item cv-only">
                     <div class="project-title"><a href="https://agentroof.com" target="_blank">AgentRoof (agentroof.com) ↗</a></div>
                     <p class="project-desc">Developed and maintained scalable web applications using Laravel, focusing on performance, security, and maintainability. Built dynamic and responsive user interfaces using JavaScript, jQuery, and AJAX to enhance user experience. Implemented backend logic for managing real estate listings, user interactions, and data workflows.</p>
                     <div class="skills-grid">
@@ -754,7 +753,7 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item cv-only">
                     <div class="project-title"><a href="https://gingertechnologies.in" target="_blank">Ginger CRM (gingertechnologies.in) ↗</a></div>
                     <p class="project-desc">A customer relationship management solution developed by Ginger Technologies that helps businesses manage customer data, generate leads, and improve communication channels. Built Laravel CRM modules focusing on communication workflows, messaging systems (SMS/Email), and real-time interactive dashboards.</p>
                     <div class="skills-grid">
@@ -762,14 +761,25 @@
                     </div>
                 </div>
 
-                <div class="project-item">
+                <div class="project-item cv-only">
                     <div class="project-title"><a href="https://rupinis.com" target="_blank">Rupini’s (rupinis.com) ↗</a></div>
                     <p class="project-desc">A well-established beauty and wellness booking platform blending traditional Ayurvedic treatments with modern techniques. Programmed appointment booking systems, calendar synchronization, and automated reminders using Laravel and cron jobs.</p>
                     <div class="skills-grid">
                         <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">MySQL</span><span class="skill-badge">JavaScript</span>
                     </div>
                 </div>
+
+            <div class="project-item cv-only">
+                <div class="project-title"><a href="https://wyconarabia.com" target="_blank">WYCON Arabia (wyconarabia.com) ↗</a></div>
+                <p class="project-desc">Contributed core e-commerce modules handling localized multi-region purchasing, cart optimization structures, checkout logic loops, and visual cosmetic catalog micro-interactions.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">MySQL</span><span class="skill-badge">Wordpress</span><span class="skill-badge">REST APIs</span><span class="skill-badge">jQuery</span>
+                </div>
             </div>
+
+                <div class="portfolio-item">
+                    For full portfolio : <a href="https://manishtm.github.io/portfolio" target="_blank">manishtm.github.io/portfolio/ ↗</a>
+                </div>
         </div>
 
     </div>
@@ -807,9 +817,9 @@
         const btn = document.getElementById('panel-toggle');
         panel.classList.toggle('collapsed');
         if (panel.classList.contains('collapsed')) {
-            btn.innerText = '🛠️';
-        } else {
             btn.innerText = '⚙️';
+        } else {
+            btn.innerText = '⤢';
         }
     }
 
