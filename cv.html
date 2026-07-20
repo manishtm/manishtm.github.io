@@ -40,8 +40,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
-            /*background-image: radial-gradient(#cbd5e1 1px, transparent 1px);*/
-            /*background-size: 16px 16px; !* Subtle dot grid pattern *!*/
+            background-image: radial-gradient(#cbd5e1 1.1px, transparent 1px);
+            background-size: 15px 15px; /* Subtle dot grid pattern */
             color: var(--text-color);
             margin: 0;
             padding: 0 20px 40px 20px;
@@ -55,7 +55,7 @@
         .header__logo a {
             display: inline-block;
             text-decoration: none;
-            font-size: 2.4rem;
+            font-size: 1.1rem;
             line-height: 1;
             font-family: var(--font-special);
             font-weight: var(--font-bold);
@@ -133,11 +133,12 @@
         /* Descriptive top label now reporting values next to text titles */
         .control-header {
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-color);
-            opacity: 0.9;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            text-align: center;
         }
 
         .status-value {
@@ -156,17 +157,6 @@
             transition: transform 0.1s, opacity 0.2s;
         }
 
-        #download-btn {
-            padding: 22px 24px;
-            font-weight: 600;
-            transition: background-color 0.2s ease, filter 0.2s ease;
-        }
-        #download-btn:hover {
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
-            background-color: yellow;
-            color: var(--primary-color);
-            filter: brightness(1.2); /* Brightens any color instantly */
-        }
         .btn:hover {
             opacity: 0.95;
             transform: scale(1.02);
@@ -230,26 +220,26 @@
             z-index: 2;
         }
 
-        /* Wide Pseudo-Element Toggle Switches */
+        /* Wide Toggle Switches */
         #view-switch-track::before { content: "RESUME"; justify-content: flex-end; padding-right: 12px; }
-        #view-switch-track::after { content: "STYLE"; }
+        #view-switch-track::after { content: "CV"; }
         input:checked + #view-switch-track::before { content: "CV"; justify-content: flex-start; padding-left: 20px; }
-        input:checked + #view-switch-track::after { transform: translateX(69px); }
+        input:checked + #view-switch-track::after { content: "RESUME";transform: translateX(69px); }
 
         #photo-switch-track::before { content: "ON"; justify-content: flex-end; padding-right: 22px; }
-        #photo-switch-track::after { content: "PHOTO"; }
+        #photo-switch-track::after { content: "OFF"; }
         input:checked + #photo-switch-track::before { content: "OFF"; justify-content: flex-start; padding-left: 22px; }
-        input:checked + #photo-switch-track::after { transform: translateX(69px); }
+        input:checked + #photo-switch-track::after { content: "ON"; transform: translateX(69px); }
 
-        #summary-switch-track::before { content: "ON"; justify-content: flex-end; padding-right: 22px; }
-        #summary-switch-track::after { content: "SUMMARY"; }
-        input:checked + #summary-switch-track::before { content: "OFF"; justify-content: flex-start; padding-left: 22px; }
-        input:checked + #summary-switch-track::after { transform: translateX(69px); }
+        #summary-switch-track::before { content: "OFF"; justify-content: flex-end; padding-right: 22px; }
+        #summary-switch-track::after { content: "ON"; }
+        input:checked + #summary-switch-track::before { content: "ON"; justify-content: flex-start; padding-left: 22px; }
+        input:checked + #summary-switch-track::after { content: "OFF"; transform: translateX(69px); }
 
         #theme-switch-track::before { content: "🌙"; justify-content: flex-end; font-size: 14px; padding-right: 22px; }
-        #theme-switch-track::after { content: "THEME"; }
+        #theme-switch-track::after { content: "☀️"; }
         input:checked + #theme-switch-track::before { content: "☀️"; justify-content: flex-start; font-size: 14px; padding-left: 22px; }
-        input:checked + #theme-switch-track::after { transform: translateX(69px); }
+        input:checked + #theme-switch-track::after { content: "🌙";transform: translateX(69px); }
 
         /* Document Component Settings */
         .document-wrapper {
@@ -608,7 +598,33 @@
             transform: scaleX(1);
             transform-origin: bottom left;
         }
+        .button-stack {
+            display: flex !important;
+            flex-direction: row !important; /* Forces buttons into one single line */
+            gap: 8px !important;            /* Space between each button */
+            width: max-content !important;
+            grid-column: 1 / -1 !important;  /* Spans across full width if inside a grid */
+            box-sizing: border-box !important;
+        }
 
+        .button-stack .btn {
+            flex: 1 !important;             /* Distributes equal width across all 3 buttons */
+            width: auto !important;         /* Allows flex to manage width */
+            max-width: 100% !important;
+            white-space: nowrap !important; /* Prevents button text from awkwardly breaking */
+            margin: 0 !important;
+            padding: 9px 9px !important;    /* Compact padding so text fits neatly on small screens */
+            font-size: 15px !important;     /* Slightly smaller font to keep everything on one line */
+            box-sizing: border-box !important;
+        }
+
+        .button-stack .btn:hover {            /* Makes shorter button match the width of the longer button */
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
+            background-color: yellow;
+            color: var(--primary-color);
+            filter: brightness(1.2); /* Brightens any color instantly */
+
+        }
     </style>
 </head>
 <body data-view="cv" data-photo="show" data-theme="light" data-summary="show">
@@ -658,7 +674,13 @@
     </div>
 
     <!-- PDF Processing Trigger Module -->
-    <button class="btn" id="download-btn">Download CV</button>
+
+
+    <div class="button-stack">
+        <button class="btn" id="export-json-btn">📋 Save JSON</button>
+        <button class="btn" id="export-ats-btn">📋 Copy ATS Text</button>
+        <button class="btn" id="download-btn"> ⤓ Download CV</button>
+    </div>
 </div>
 
 <!-- Live Preview Sheet Main Structural Wrapper -->
@@ -961,7 +983,7 @@
         $('#view-toggle').on('change', function () {
             const isResume = $(this).is(':checked');
             const view = isResume ? 'resume' : 'cv';
-            $('#download-btn').text(`Download ${view.toUpperCase()}`);
+            $('#download-btn').text(`⤓ Download ${view.toUpperCase()}`);
             $('body').attr('data-view', view);
             $('#val-view').text(view.toUpperCase());
 
@@ -1005,6 +1027,8 @@
 
             triggerPreviewPulse();
         });
+
+        $('#theme-toggle').prop('checked', true).trigger('change');
 
         // -------------------------------------------------------------
         // 5. Sticky Floating Control Panel Collapse/Expand
@@ -1055,11 +1079,96 @@
                 // 2. Remove the class AFTER generating
                 $element.removeClass('pdf-exporting');
                 $btn.text(originalText).prop('disabled', false);
+
+                const $toast = $('#toast');
+                $toast.text('⤓ Generated '+currentView.toUpperCase() ).addClass('show');
+                setTimeout(function () {
+                    $toast.removeClass('show');
+                }, 2000);
+
             }).catch(function (err) {
                 console.error('PDF Generation Error:', err);
                 $element.removeClass('pdf-exporting');
                 $btn.text(originalText).prop('disabled', false);
             });
+        });
+
+
+        // ==========================================
+// 1. ATS-FRIENDLY PLAIN TEXT EXPORTER
+// ==========================================
+        $('#export-ats-btn').on('click', function() {
+            const $clone = $('#printable-area').clone();
+
+            // Remove non-printable / UI elements from clone
+            $clone.find('.copy-btn, .view-indicator, script, style, .no-print').remove();
+
+            // Preserve line breaks for headings, list items, and paragraph ends
+            $clone.find('h1, h2, h3, p, li, tr, .item, .section').each(function() {
+                $(this).append('\n');
+            });
+
+            // Get clean plain text
+            let plainText = $clone[0].innerText || $clone[0].textContent;
+
+            // Clean up excessive blank lines/spaces
+            plainText = plainText
+                .replace(/\n\s*\n\s*\n/g, '\n\n') // Max 2 consecutive linebreaks
+                .trim();
+
+            // Copy to clipboard & show feedback
+                navigator.clipboard.writeText(plainText).then(() => {
+                const originalText = $(this).text();
+                $(this).text('📋 ATS Text copied!');
+                setTimeout(() => $(this).text(originalText), 2000);
+
+                const $toast = $('#toast');
+                $toast.text('📋 ATS Text copied!').addClass('show');
+                setTimeout(function () {
+                    $toast.removeClass('show');
+                }, 2000);
+
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Could not copy automatically. Check console.');
+            });
+        });
+
+// ==========================================
+// 2. JSON EXPORT (SAVE STATE)
+// ==========================================
+        $('#export-json-btn').on('click', function() {
+            const currentView = $('body').attr('data-view') || 'cv';
+            const currentTheme = $('body').attr('data-theme') || 'light';
+
+            // Package current state and printable HTML content
+            const resumeData = {
+                version: "1.0",
+                timestamp: new Date().toISOString(),
+                view: currentView,
+                theme: currentTheme,
+                htmlContent: $('#printable-area').html()
+            };
+
+            const originalText = $(this).text();
+            $(this).text('📋 Generated JSON!');
+            setTimeout(() => $(this).text(originalText), 2000);
+
+            const $toast = $('#toast');
+            $toast.text('📋 Generated JSON!').addClass('show');
+            setTimeout(function () {
+                $toast.removeClass('show');
+            }, 2000);
+
+
+            // Trigger JSON file download
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(resumeData, null, 2));
+            const $downloadAnchor = $('<a>', {
+                href: dataStr,
+                download: `resume_${currentView}.json`
+            }).appendTo('body');
+            $downloadAnchor[0].click();
+            $downloadAnchor.remove();
         });
     });
 </script>
