@@ -1,1 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish TM - CV / Resume</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- html2pdf.js CDN for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- 1. Add Fancybox CSS & JS CDN links in your <head> / <body> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --primary-color: #2563eb;
+            --secondary-color: #4b5563;
+            --border-color: #e5e7eb;
+            --sheet-bg: #ffffff;
+            --controls-bg: rgba(255, 255, 255, 0.4);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            --badge-bg: #f3f4f6;
+            --badge-text: #374151;
+        }
 
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f1f5f9;
+            --primary-color: #3b82f6;
+            --secondary-color: #94a3b8;
+            --border-color: #334155;
+            --sheet-bg: #1e293b;
+            --controls-bg: rgba(30, 41, 59, 0.4);
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            --badge-bg: #334155;
+            --badge-text: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            /*background-image: radial-gradient(#cbd5e1 1px, transparent 1px);*/
+            /*background-size: 16px 16px; !* Subtle dot grid pattern *!*/
+            color: var(--text-color);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .header__logo a {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 2.4rem;
+            line-height: 1;
+            font-family: var(--font-special);
+            font-weight: var(--font-bold);
+            background: linear-gradient(180deg, #5dadec 35%, #ef9645 42%, #dd2e44 60%, #ef9645 65%, #ffdc5d 60%, #676cdb 72%);
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -moz-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glassmorphism Control Panel Container Layout */
+        .controls {
+            position: sticky;
+            top: 15px;
+            z-index: 100;
+            background-color: var(--controls-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            padding: 5px 20px;
+            border-radius: 50px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease-in-out;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* clpd State for Controls */
+        .controls.clpd {
+            display: none !important;
+        }
+
+        /* Universal Master Floating Visibility Toggle Button */
+        .panel-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 110;
+            background-color: var(--controls-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        .panel-toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Structure Box linking the Top Header and the Switch Graphic */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Descriptive top label now reporting values next to text titles */
+        .control-header {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .status-value {
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            /*padding: 22px 24px;*/
+            border-radius: 50px;
+            cursor: pointer;
+            /*font-weight: 600;*/
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        #download-btn {
+            padding: 22px 24px;
+            font-weight: 600;
+            transition: background-color 0.2s ease, filter 0.2s ease;
+        }
+        #download-btn:hover {
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
+            background-color: yellow;
+            color: var(--primary-color);
+            filter: brightness(1.2); /* Brightens any color instantly */
+        }
+        .btn:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
+        }
+
+        /* Wide Labeled Switch Framework Structure */
+        .labeled-switch {
+            position: relative;
+            display: inline-block;
+            width: 155px;
+            height: 38px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .labeled-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .switch-slider {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--primary-color);
+            transition: 0.3s ease-in-out;
+            border-radius: 50px;
+        }
+
+        /* Base Internal Tracking Track Text Settings */
+        .switch-slider::before {
+            position: absolute;
+            left: 0; right: 0; top: 0; bottom: 0;
+            display: flex;
+            align-items: center;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 0 14px;
+            color: rgba(255, 255, 255, 0.9);
+            transition: 0.3s;
+        }
+
+        /* Base Sliding White Button Knob Text Settings */
+        .switch-slider::after {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--primary-color);
+            height: 30px;
+            width: 78px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        /* Wide Pseudo-Element Toggle Switches */
+        #view-switch-track::before { content: "RESUME"; justify-content: flex-end; padding-right: 12px; }
+        #view-switch-track::after { content: "STYLE"; }
+        input:checked + #view-switch-track::before { content: "CV"; justify-content: flex-start; padding-left: 20px; }
+        input:checked + #view-switch-track::after { transform: translateX(69px); }
+
+        #photo-switch-track::before { content: "ON"; justify-content: flex-end; padding-right: 22px; }
+        #photo-switch-track::after { content: "PHOTO"; }
+        input:checked + #photo-switch-track::before { content: "OFF"; justify-content: flex-start; padding-left: 22px; }
+        input:checked + #photo-switch-track::after { transform: translateX(69px); }
+
+        #summary-switch-track::before { content: "ON"; justify-content: flex-end; padding-right: 22px; }
+        #summary-switch-track::after { content: "SUMMARY"; }
+        input:checked + #summary-switch-track::before { content: "OFF"; justify-content: flex-start; padding-left: 22px; }
+        input:checked + #summary-switch-track::after { transform: translateX(69px); }
+
+        #theme-switch-track::before { content: "🌙"; justify-content: flex-end; font-size: 14px; padding-right: 22px; }
+        #theme-switch-track::after { content: "THEME"; }
+        input:checked + #theme-switch-track::before { content: "☀️"; justify-content: flex-start; font-size: 14px; padding-left: 22px; }
+        input:checked + #theme-switch-track::after { transform: translateX(69px); }
+
+        /* Document Component Settings */
+        .document-wrapper {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .document-container {
+            background-color: var(--sheet-bg);
+            padding: 50px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 24px;
+            margin-bottom: 25px;
+        }
+
+        .header-text h1 {
+            margin: 0 0 8px 0;
+            font-size: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .view-indicator {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .contact {
+            color: var(--secondary-color);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .contact a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .photo-frame {
+            width: 115px;
+            height: 115px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-frame img:hover{
+            transform: scale(1.1);
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            font-size: 16px;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .item {
+            margin-bottom: 24px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+        }
+
+        .item-sub {
+            color: var(--secondary-color);
+            font-style: italic;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .item p {
+            margin: 4px 0;
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+
+        ul.item-bullets {
+            margin: 6px 0 0 0;
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Skill Grid Configuration */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .skill-badge {
+            background-color: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Projects Section Style rules */
+        .project-item {
+            margin-bottom: 28px;
+        }
+        .project-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .project-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .project-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 6px 0;
+            color: var(--text-color);
+        }
+
+        .resume-portfolio-link {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+        .resume-portfolio-link a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .resume-portfolio-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Target Content Block Layer Selectors */
+        .cv-only, .resume-only, .photo-frame, .summary-section {
+            display: none;
+        }
+
+        body[data-view="cv"] .cv-only { display: block; }
+        body[data-view="resume"] .resume-only { display: block; }
+        body[data-photo="show"] .photo-frame { display: flex; }
+        body[data-summary="show"] .summary-section { display: block; }
+
+        /* Mobile Optimization and Layout Enhancements */
+        @media (max-width: 768px) {
+            body {
+                padding: 0 10px 30px 10px;
+            }
+            .controls {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                border-radius: 20px;
+                padding: 16px 12px;
+                gap: 12px;
+                width: 100%;
+                top: 5px;
+            }
+            .controls h4.header__logo {
+                grid-column: span 2;
+                margin: 0;
+                text-align: center;
+            }
+            .controls .btn {
+                grid-column: span 2;
+                margin-top: 4px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .labeled-switch {
+                width: 100%;
+                max-width: 145px;
+                height: 36px;
+            }
+            .switch-slider::before {
+                font-size: 9px;
+                padding: 0 10px;
+            }
+            .switch-slider::after {
+                width: 48%;
+                height: 28px;
+                font-size: 9px;
+            }
+            input:checked + #view-switch-track::after,
+            input:checked + #photo-switch-track::after,
+            input:checked + #summary-switch-track::after,
+            input:checked + #theme-switch-track::after {
+                transform: translateX(100%);
+                left: -4px;
+            }
+            .document-container {
+                padding: 24px 16px;
+                border-radius: 12px;
+            }
+            .doc-header {
+                flex-direction: column-reverse;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            .item-header {
+                flex-direction: column;
+                gap: 2px;
+            }
+        }
+
+        @media print {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .preview-flash, .fadein_effect {
+                box-shadow: none !important;
+                animation: none !important;
+            }
+
+            .controls, .panel-toggle-btn, .copy-btn {
+                display: none !important;
+            }
+
+            body {
+                padding: 0;
+                margin: 0;
+            }
+
+            .document-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .section, .item, .project-item {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+        }
+
+        #control-panel:hover,#printable-area:hover,#panel-toggle:hover,.header__logo:hover {
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.25);
+        }
+
+        /* Fade-in for toggled sections */
+        .fadein_effect {
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Force static state during PDF capture */
+        .pdf-exporting,
+        .pdf-exporting * {
+            animation: none !important;
+            transition: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        /* Live Preview Flash effect on printable area */
+        .preview-flash {
+            box-shadow: 0 0 0 3px var(--primary-color) !important;
+            transition: box-shadow 0.4s ease;
+        }
+        .copy-btn {
+            background: none; border: none; cursor: pointer; font-size: 12px; opacity: 0.7; padding: 0 2px;
+        }
+        .copy-btn:hover { opacity: 1; transform: scale(1.1); }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px; background-color: var(--primary-color);
+            color: white; padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 13px;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px); z-index: 200; box-shadow: var(--shadow);
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .links {
+            padding: 2px 9px;
+            background-color: var(--bg-color);
+            color: var(--text-color);               /* Modern vibrant blue */
+            text-decoration: none;        /* Remove default underline */
+            font-weight: 500;
+            display: inline-block;
+            position: relative;
+            border-radius: 50px;
+            transition: color 0.2s ease-in-out;
+        }
+
+        /* Underline slide-in effect on hover */
+        .links::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #1d4ed8;
+            border-radius: 50px;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+
+        .links:hover {
+            border-radius: 6px;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .links:hover::after {
+            border-radius: 50px;
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+    </style>
+</head>
+<body data-view="cv" data-photo="show" data-theme="light" data-summary="show">
+
+<!-- Master Floating Show/Hide Toggle Switch -->
+<button class="panel-toggle-btn" id="panel-toggle" title="Toggle Control Panel">⤢</button>
+
+<!-- Interactive Navigation Control Bar -->
+<div class="controls" id="control-panel">
+    <h4 class="header__logo" title="visit portfolio">
+        <a href="https://manishtm.github.io/" target="_blank"> Manish&trade; </a>
+    </h4>
+    <!-- Switch 1: Style Mode Structure Layout -->
+    <div class="control-group">
+        <label class="labeled-switch">
+            <input type="checkbox" id="view-toggle">
+            <span class="switch-slider" id="view-switch-track"></span>
+        </label>
+        <div class="control-header">Style: <span class="status-value" id="val-view">CV</span></div>
+    </div>
+
+    <!-- Switch 2: Portrait Picture Component Visibility -->
+    <div class="control-group">
+        <label class="labeled-switch">
+            <input type="checkbox" id="photo-toggle" checked>
+            <span class="switch-slider" id="photo-switch-track"></span>
+        </label>
+        <div class="control-header">Photo: <span class="status-value" id="val-photo">ON</span></div>
+    </div>
+
+    <!-- Switch 3: Core Executive Summary Visibility -->
+    <div class="control-group">
+        <label class="labeled-switch">
+            <input type="checkbox" id="summary-toggle" checked>
+            <span class="switch-slider" id="summary-switch-track"></span>
+        </label>
+        <div class="control-header">Summary: <span class="status-value" id="val-summary">ON</span></div>
+    </div>
+
+    <!-- Switch 4: Canvas User Interface Color Themes -->
+    <div class="control-group">
+        <label class="labeled-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="switch-slider" id="theme-switch-track"></span>
+        </label>
+        <div class="control-header">Theme: <span class="status-value" id="val-theme">☀️ Light</span></div>
+    </div>
+
+    <!-- PDF Processing Trigger Module -->
+    <button class="btn" id="download-btn">Download CV</button>
+</div>
+
+<!-- Live Preview Sheet Main Structural Wrapper -->
+<div class="document-wrapper">
+    <div class="document-container" id="printable-area">
+
+        <div class="doc-header">
+            <div class="header-text fadein_effect">
+                <span class="view-indicator" id="doc-type-badge">Curriculum Vitae</span>
+                <h1>Manish TM</h1>
+
+                <div class="contact">
+                    📍 Thrissur, Kerala, India<br>
+                    📧 <a href="mailto:manishmuralee@gmail.com">manishmuralee@gmail.com</a><button class="copy-btn" data-copy="manishmuralee@gmail.com" data-label="Email" title="copy email">📋</button> | 📞 <a href="tel:+919567091041">+91 9567091041</a><button class="copy-btn" data-copy="+919567091041" data-label="Phone" title="copy phone">📋</button><br>
+                    🔗 <a href="https://www.linkedin.com/in/manishtm/" target="_blank">LinkedIn ↗</a><button class="copy-btn" data-copy="https://linkedin.com/manishtm" data-label="Linkedin" title="copy linkedin">📋</button> |
+                    💻 <a href="https://manishtm.github.io/" target="_blank">Website ↗</a><button class="copy-btn" data-copy="https://manishtm.github.io/" data-label="Website" title="copy website">📋</button> |
+                    🐙 <a href="https://github.com/manishtm" target="_blank">GitHub ↗</a><button class="copy-btn" data-copy="https://github.com/manishtm" data-label="Github" title="copy github">📋</button>
+                </div>
+            </div>
+
+            <div class="photo-frame fadein_effect" id="photo-container">
+                <img src="https://manishtm.github.io/assets/profile.jpg" alt="Manish TM Profile Picture" data-fancybox="gallery" data-caption="Manish TM Profile Picture">
+            </div>
+        </div>
+
+        <!-- Profile Summary Section -->
+        <div class="section summary-section">
+            <h2>Summary</h2>
+            <p class="fadein_effect">Dedicated and experienced Software Engineer with a strong background in software development, specializing in frameworks such as Laravel, CodeIgniter, WordPress and Golang. With a proven track record of delivering high-quality web applications, I am adept at leveraging cutting-edge technologies to meet and exceed client expectations.<br>I have a speech impediment (stammering) and identify as a person with disability, which I believe has helped me develop patience, resilience, and strong written communication skills.
+            <span class="cv-only fadein_effect">I communicate best in structured or written formats and may take a bit more time in verbal conversations. I am particularly interested in opportunities with inclusive organizations that value diversity and accessibility.</span></p>
+        </div>
+
+        <!-- Professional Experience Block -->
+        <div class="section">
+            <h2>Work Experience</h2>
+
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>Software Developer</span>
+                    <span>Nov 2024 – Apr 2026</span>
+                </div>
+                <div class="item-sub"><a href="https://www.takyon.net/" target="_blank" class="links">Takyon System Solutions ↗</a></div>
+
+                <ul class="item-bullets cv-only">
+                    <li>Developed AI-powered applications for educational purposes using the AI APIs, enhancing learning experiences and accessibility.</li>
+                    <li>Applied expertise in PHP, Golang to design and implement scalable solutions tailored to client requirements.</li>
+                    <li>Collaborated with teams to integrate innovative AI functionalities into new and existing systems.</li>
+                    <li>Ensured optimal performance of applications by conducting thorough testing and debugging processes.</li>
+                    <li>Maintained up-to-date knowledge of emerging technologies to improve application capabilities and efficiency.</li>
+                    <li>Delivered high-quality code adhering to industry standards and best practices within defined timelines.</li>
+                </ul>
+            </div>
+
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>Software Developer</span>
+                    <span>Sep 2023 – Apr 2024</span>
+                </div>
+                <div class="item-sub"><a href="https://mapletechspace.com/" target="_blank" class="links">Maple Tech Space ↗</a></div>
+                <ul class="item-bullets cv-only">
+                    <li>Developed and maintained robust web applications using Laravel, ensuring high performance and scalability.</li>
+                    <li>Implemented Livewire components to enhance user interactivity and improve overall user experience.</li>
+                    <li>Utilized FFMPEG to handle video processing and manipulation, enabling seamless integration of multimedia content.</li>
+                    <li>Leveraged Facebook Graph APIs to integrate social media functionalities into web applications, enhancing user engagement and reach.</li>
+                    <li>Collaborated with cross-functional teams to gather requirements and deliver solutions that meet client expectations.</li>
+                    <li>Conducted thorough testing and debugging to ensure the reliability and stability of developed applications.</li>
+                    <li>Stayed updated with the latest PHP and Laravel trends and best practices, continuously improving skills and staying ahead of industry standards.</li>
+                </ul>
+            </div>
+
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>Software Developer</span>
+                    <span>May 2022 – Mar 2023</span>
+                </div>
+                <div class="item-sub"><a href="https://www.gingertechnologies.in/" target="_blank" class="links">Ginger Technologies ↗</a></div>
+
+                <ul class="item-bullets cv-only">
+                    <li>Developed and maintained PHP applications, specializing in Laravel projects, Facebook Graph APIs, and Gmail APIs.</li>
+                    <li>Collaborated with cross-functional teams to gather requirements and deliver high-quality software solutions.</li>
+                    <li>Implemented efficient and scalable code, ensuring optimal performance and user experience.</li>
+                    <li>Utilized industry best practices and coding standards to ensure code quality and maintainability.</li>
+                    <li>Conducted thorough testing and debugging to identify and resolve issues in a timely manner.</li>
+                    <li>Actively participated in code reviews and provided constructive feedback to improve overall code quality.</li>
+                    <li>Stayed updated with the latest PHP frameworks and technologies, incorporating them into project development as appropriate.</li>
+                    <li>Demonstrated strong problem-solving skills and a proactive approach to finding innovative solutions.</li>
+                </ul>
+            </div>
+
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>Software Developer</span>
+                    <span>Jun 2021 – Apr 2022</span>
+                </div>
+                <div class="item-sub"><a href="https://webandcrafts.com/" target="_blank" class="links">Webandcrafts ↗</a></div>
+
+                <ul class="item-bullets cv-only">
+                    <li>Developed and maintained PHP applications, specializing in Laravel and WordPress projects.</li>
+                    <li>Collaborated with cross-functional teams to gather requirements and deliver high-quality solutions.</li>
+                    <li>Implemented efficient and scalable code structures, ensuring optimal performance and maintainability.</li>
+                    <li>Utilized industry best practices and coding standards to deliver robust and secure applications.</li>
+                    <li>Conducted thorough testing and debugging to identify and resolve issues, ensuring the reliability of the final product.</li>
+                    <li>Actively participated in code reviews and provided constructive feedback to improve code quality.</li>
+                    <li>Stayed updated with the latest PHP frameworks and technologies, continuously enhancing skills and knowledge.</li>
+                    <li>Demonstrated strong problem-solving abilities and a proactive approach to overcoming challenges.</li>
+                </ul>
+            </div>
+
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>Software Developer</span>
+                    <span>Jun 2018 – May 2021</span>
+                </div>
+                <div class="item-sub"><a href="https://atees.in/" target="_blank" class="links">ATEES Infomedia Pvt Ltd ↗</a></div>
+
+                <ul class="item-bullets cv-only">
+                    <li>Developed and maintained PHP applications, specializing in CodeIgniter and WordPress projects.</li>
+                    <li>Collaborated with cross-functional teams to gather requirements and deliver high-quality solutions.</li>
+                    <li>Implemented efficient and scalable code, ensuring optimal performance and user experience.</li>
+                    <li>Conducted thorough testing and debugging to identify and resolve issues, ensuring the stability and reliability of applications.</li>
+                    <li>Utilized industry best practices and coding standards to ensure code quality and maintainability.</li>
+                    <li>Actively participated in code reviews and provided constructive feedback to improve team productivity and code quality.</li>
+                    <li>Stayed updated with the latest PHP frameworks and technologies, continuously enhancing skills and knowledge.</li>
+                    <li>Demonstrated strong problem-solving skills and the ability to work under tight deadlines.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Education History Module -->
+        <div class="section">
+            <h2>Education</h2>
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>BTech, Computer Science</span>
+                    <span>2012 – 2016</span>
+                </div>
+                <div class="item-sub"><a href="https://www.amrita.edu/" target="_blank" class="links">Amrita University ↗</a></div>
+            </div>
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>MBA, Information System Management</span>
+                    <span>2019 – 2022</span>
+                </div>
+                <div class="item-sub"><a href="https://b-u.ac.in/" target="_blank" class="links">Bharathiar University ↗</a></div>
+            </div>
+            <div class="item fadein_effect">
+                <div class="item-header">
+                    <span>1-12, Computer Science (CBSE)</span>
+                    <span>2000 – 2012</span>
+                </div>
+                <div class="item-sub"><a href="https://bvbpoochatty.in/" target="_blank" class="links">Bharatiya Vidya Bhavans Thrissur ↗</a></div>
+            </div>
+        </div>
+
+        <!-- Technical Knowledge Competencies Area -->
+        <div class="section">
+            <h2>Skills</h2>
+            <div class="skills-grid fadein_effect">
+                <span class="skill-badge">PHP</span>
+                <span class="skill-badge">WordPress</span>
+                <span class="skill-badge">Laravel</span>
+                <span class="skill-badge">CodeIgniter</span>
+                <span class="skill-badge">REST APIs</span>
+                <span class="skill-badge">Amazon EC2</span>
+                <span class="skill-badge">Web Development</span>
+                <span class="skill-badge">jQuery</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">Amazon Web Services (AWS)</span>
+                <span class="skill-badge">Linux</span>
+                <span class="skill-badge">Docker</span>
+                <span class="skill-badge">MySQL</span>
+                <span class="skill-badge">LAMP</span>
+                <span class="skill-badge">Ubuntu</span>
+                <span class="skill-badge">Git</span>
+                <span class="skill-badge">AJAX</span>
+                <span class="skill-badge">SQL</span>
+                <span class="skill-badge">phpMyAdmin</span>
+                <span class="skill-badge">Apache</span>
+                <span class="skill-badge">MongoDB</span>
+                <span class="skill-badge">DBMS</span>
+                <span class="skill-badge">GitLab</span>
+                <span class="skill-badge">MVC</span>
+                <span class="skill-badge">API Development</span>
+                <span class="skill-badge">Golang</span>
+            </div>
+        </div>
+
+        <!-- Languages Module -->
+        <div class="section cv-only fadein_effect">
+            <h2>Languages</h2>
+            <p><strong>English:</strong> Fluent</p>
+            <p><strong>Malayalam:</strong> Native</p>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="section">
+            <h2>Projects</h2>
+
+            <!-- Visible on both CV and Resume views -->
+            <div class="project-item cv-only fadein_effect">
+                <div class="project-title"><a href="https://stogo.ai" target="_blank" class="links">StogoAI (stogo.ai) ↗</a></div>
+                <p class="project-desc">StogoAI is an AI-driven educational platform that automates the evaluation process by analyzing question papers, answer sheets, and answer keys using AI and OCR technologies. Worked as a PHP Developer and AI Integration Engineer developing backend systems using Laravel, integrating AI APIs for automated evaluation, and building dynamic components via JavaScript, jQuery, and AJAX. Also managed question mapping logic, resulting in faster evaluation turnaround times.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">OpenAI</span><span class="skill-badge">Gemini API</span><span class="skill-badge">OCR</span><span class="skill-badge">Golang</span>
+                </div>
+            </div>
+
+            <div class="project-item cv-only fadein_effect">
+                <div class="project-title"><a href="https://thecanadianhome.com" target="_blank" class="links">The Canadian Home (thecanadianhome.com) ↗</a></div>
+                <p class="project-desc">Developed and maintained high-performance web applications using Laravel, ensuring scalability and reliability. Implemented Livewire components to enhance user interactivity and deliver a seamless user experience. Integrated FFMPEG for efficient video processing and multimedia handling. Leveraged Facebook Graph API to incorporate social media features, improving user engagement and reach.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">Livewire</span><span class="skill-badge">FFMPEG</span><span class="skill-badge">Facebook Graph API</span>
+                </div>
+            </div>
+
+            <div class="project-item cv-only fadein_effect">
+                    <div class="project-title"><a href="https://agentroof.com" target="_blank" class="links">AgentRoof (agentroof.com) ↗</a></div>
+                    <p class="project-desc">Developed and maintained scalable web applications using Laravel, focusing on performance, security, and maintainability. Built dynamic and responsive user interfaces using JavaScript, jQuery, and AJAX to enhance user experience. Implemented backend logic for managing real estate listings, user interactions, and data workflows.</p>
+                    <div class="skills-grid">
+                        <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">JavaScript</span><span class="skill-badge">MySQL</span><span class="skill-badge">REST APIs</span>
+                    </div>
+                </div>
+
+                <div class="project-item cv-only fadein_effect">
+                    <div class="project-title"><a href="https://gingertechnologies.in" target="_blank" class="links">Ginger CRM (gingertechnologies.in) ↗</a></div>
+                    <p class="project-desc">A customer relationship management solution developed by Ginger Technologies that helps businesses manage customer data, generate leads, and improve communication channels. Built Laravel CRM modules focusing on communication workflows, messaging systems (SMS/Email), and real-time interactive dashboards.</p>
+                    <div class="skills-grid">
+                        <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">AJAX</span><span class="skill-badge">MySQL</span>
+                    </div>
+                </div>
+
+                <div class="project-item cv-only fadein_effect">
+                    <div class="project-title"><a href="https://rupinis.com" target="_blank" class="links">Rupini’s (rupinis.com) ↗</a></div>
+                    <p class="project-desc">A well-established beauty and wellness booking platform blending traditional Ayurvedic treatments with modern techniques. Programmed appointment booking systems, calendar synchronization, and automated reminders using Laravel and cron jobs.</p>
+                    <div class="skills-grid">
+                        <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">MySQL</span><span class="skill-badge">JavaScript</span>
+                    </div>
+                </div>
+
+            <div class="project-item cv-only fadein_effect">
+                <div class="project-title"><a href="https://wyconarabia.com" target="_blank" class="links">WYCON Arabia (wyconarabia.com) ↗</a></div>
+                <p class="project-desc">Contributed core e-commerce modules handling localized multi-region purchasing, cart optimization structures, checkout logic loops, and visual cosmetic catalog micro-interactions.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">MySQL</span><span class="skill-badge">Wordpress</span><span class="skill-badge">REST APIs</span><span class="skill-badge">jQuery</span>
+                </div>
+            </div>
+
+                <div class="portfolio-item fadein_effect">
+                    For full portfolio : <a href="https://manishtm.github.io/" target="_blank" class="links">manishtm.github.io/ ↗</a>
+                </div>
+        </div>
+
+    </div>
+</div>
+<div id="toast" class="toast">Copied to clipboard!</div>
+
+<!-- JavaScript Handling the Switches and PDF Generation -->
+<script>
+    Fancybox.bind("[data-fancybox]", {});
+    $(document).ready(function () {
+
+        // -------------------------------------------------------------
+        // Helper 1: Trigger Live Preview Pulse Animation Effect
+        // -------------------------------------------------------------
+        function triggerPreviewPulse() {
+            const $printable = $('#printable-area');
+            $printable.addClass('preview-flash');
+            setTimeout(function () {
+                $printable.removeClass('preview-flash');
+            }, 300);
+        }
+
+        // -------------------------------------------------------------
+        // Helper 2: Copy to Clipboard Functionality with Toast Popup
+        // -------------------------------------------------------------
+        function copyText(text, label) {
+            navigator.clipboard.writeText(text).then(function () {
+                const $toast = $('#toast');
+                $toast.text(label + ' copied to clipboard!').addClass('show');
+                setTimeout(function () {
+                    $toast.removeClass('show');
+                }, 2000);
+            }).catch(function (err) {
+                console.error('Copy failed: ', err);
+            });
+        }
+
+        // Bind click events to elements with the .copy-btn class
+        $(document).on('click', '.copy-btn', function () {
+            const textToCopy = $(this).data('copy');
+            const label = $(this).data('label') || 'Text';
+            if (textToCopy) {
+                copyText(textToCopy, label);
+            }
+        });
+
+        // -------------------------------------------------------------
+        // 1. View Mode Toggle (CV vs. Resume)
+        // -------------------------------------------------------------
+        $('#view-toggle').on('change', function () {
+            const isResume = $(this).is(':checked');
+            const view = isResume ? 'resume' : 'cv';
+            $('#download-btn').text(`Download ${view.toUpperCase()}`);
+            $('body').attr('data-view', view);
+            $('#val-view').text(view.toUpperCase());
+
+            $('#doc-type-badge').text(isResume ? 'Resume' : 'Curriculum Vitae');
+
+            triggerPreviewPulse();
+        });
+
+        // -------------------------------------------------------------
+        // 2. Photo Visibility Toggle
+        // -------------------------------------------------------------
+        $('#photo-toggle').on('change', function () {
+            const isChecked = $(this).is(':checked');
+
+            $('body').attr('data-photo', isChecked ? 'show' : 'hide');
+            $('#val-photo').text(isChecked ? 'ON' : 'OFF');
+
+            triggerPreviewPulse();
+        });
+
+        // -------------------------------------------------------------
+        // 3. Summary Section Visibility Toggle
+        // -------------------------------------------------------------
+        $('#summary-toggle').on('change', function () {
+            const isChecked = $(this).is(':checked');
+
+            $('body').attr('data-summary', isChecked ? 'show' : 'hide');
+            $('#val-summary').text(isChecked ? 'ON' : 'OFF');
+
+            triggerPreviewPulse();
+        });
+
+        // -------------------------------------------------------------
+        // 4. Dark / Light Theme Toggle
+        // -------------------------------------------------------------
+        $('#theme-toggle').on('change', function () {
+            const isDark = $(this).is(':checked');
+
+            $('body').attr('data-theme', isDark ? 'dark' : 'light');
+            $('#val-theme').text(isDark ? '🌙 Dark' : '☀️ Light');
+
+            triggerPreviewPulse();
+        });
+
+        // -------------------------------------------------------------
+        // 5. Sticky Floating Control Panel Collapse/Expand
+        // -------------------------------------------------------------
+        $('#panel-toggle').on('click', function () {
+            const $panel = $('#control-panel');
+            $panel.toggleClass('clpd');
+
+            if ($panel.hasClass('clpd')) {
+                $(this).text('⚙️'); // Show Gear symbol when hidden
+            } else {
+                $(this).text('⤢'); // Show Expand symbol when open
+            }
+        });
+
+        // -------------------------------------------------------------
+        // 6. Download PDF Handler with Async Progress State
+        // -------------------------------------------------------------
+        $('#download-btn').on('click', function () {
+            const $body = $('body');
+            const $element = $('#printable-area');
+            const $btn = $(this);
+
+            const originalText = $btn.text();
+            const currentView = $body.attr('data-view') || 'cv';
+
+            $btn.text('⏳ Generating PDF...').prop('disabled', true);
+
+            // 1. Add the class BEFORE generating
+            $element.addClass('pdf-exporting');
+
+            const opt = {
+                margin:       [1, 1, 1, 1],
+                filename:     `Manish_TM_${currentView.toUpperCase()}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    scrollY: 0
+                },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak:    { mode: ['css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from($element[0]).save().then(function () {
+                // 2. Remove the class AFTER generating
+                $element.removeClass('pdf-exporting');
+                $btn.text(originalText).prop('disabled', false);
+            }).catch(function (err) {
+                console.error('PDF Generation Error:', err);
+                $element.removeClass('pdf-exporting');
+                $btn.text(originalText).prop('disabled', false);
+            });
+        });
+    });
+</script>
+</body>
+</html>
