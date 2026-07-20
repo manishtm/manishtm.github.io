@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,7 @@
         .header__logo a {
             display: inline-block;
             text-decoration: none;
-            font-size: 3rem;
+            font-size: 2.4rem;
             line-height: 1;
             font-family: var(--font-special);
             font-weight: var(--font-bold);
@@ -488,7 +488,7 @@
 <body data-view="cv" data-photo="show" data-theme="light" data-summary="show">
 
 <!-- Master Floating Show/Hide Toggle Switch -->
-<button class="panel-toggle-btn" id="panel-toggle" onclick="toggleControlPanel()" title="Toggle Control Panel">⚙️</button>
+<button class="panel-toggle-btn" id="panel-toggle" onclick="toggleControlPanel()" title="Toggle Control Panel">⤢</button>
 
 <!-- Interactive Navigation Control Bar -->
 <div class="controls" id="control-panel">
@@ -791,6 +791,7 @@
         const view = checkbox.checked ? 'resume' : 'cv';
         document.body.setAttribute('data-view', view);
         document.getElementById('val-view').innerText = view.toUpperCase();
+        document.getElementById('download-btn').innerText = `Download ${view.toUpperCase()} (PDF)`;
         document.getElementById('doc-type-badge').innerText = view === 'resume' ? 'Resume' : 'Curriculum Vitae';
     }
 
