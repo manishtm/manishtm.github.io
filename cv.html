@@ -1,14 +1,14 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5ZF3YR4QV"></script>
-      <script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5ZF3YR4QV"></script>
+    <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-Y5ZF3YR4QV');
-      </script>
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manish TM - CV / Resume</title>
@@ -84,19 +84,29 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--border-color);
-            padding: 5px 20px;
+            padding: 8px 16px;            /* Reduced horizontal padding */
             border-radius: 50px;
             margin-top: 20px;
             margin-bottom: 30px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            align-items: center;
+            flex-wrap: nowrap !important;
+            gap: 12px !important;         /* Reduced gap between items from 20px to 12px */
+            align-items: center !important;
             justify-content: center;
             box-shadow: var(--shadow);
             transition: all 0.3s ease-in-out;
-            width: 100%;
+            width: max-content;           /* Fits exact content size */
+            max-width: calc(100vw - 32px);/* Prevents panel from exceeding screen width */
+            overflow-x: auto;             /* Enables smooth inline scrolling if screen is too narrow */
             box-sizing: border-box;
+        }
+
+        .controls::-webkit-scrollbar {
+            display: none;
+        }
+        .controls {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         /* clpd State for Controls */
@@ -135,7 +145,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
+            gap: 4px;
+            margin: 0 !important;          /* Prevents uneven vertical offsets */
         }
 
         /* Descriptive top label now reporting values next to text titles */
@@ -145,7 +157,6 @@
             letter-spacing: 0.6px;
             text-transform: uppercase;
             color: #94a3b8;
-            margin-bottom: -15px;
             text-align: center;
         }
 
@@ -239,10 +250,10 @@
         input:checked + #photo-switch-track::before { content: "OFF"; justify-content: flex-start; padding-left: 22px; }
         input:checked + #photo-switch-track::after { content: "ON"; transform: translateX(69px); }
 
-        #summary-switch-track::before { content: "OFF"; justify-content: flex-end; padding-right: 22px; }
-        #summary-switch-track::after { content: "ON"; }
-        input:checked + #summary-switch-track::before { content: "ON"; justify-content: flex-start; padding-left: 22px; }
-        input:checked + #summary-switch-track::after { content: "OFF"; transform: translateX(69px); }
+        #summary-switch-track::before { content: "ON"; justify-content: flex-end; padding-right: 22px; }
+        #summary-switch-track::after { content: "OFF"; }
+        input:checked + #summary-switch-track::before { content: "OFF"; justify-content: flex-start; padding-left: 22px; }
+        input:checked + #summary-switch-track::after { content: "ON"; transform: translateX(69px); }
 
         #theme-switch-track::before { content: "🌙"; justify-content: flex-end; font-size: 14px; padding-right: 22px; }
         #theme-switch-track::after { content: "☀️"; }
@@ -606,26 +617,51 @@
             transform: scaleX(1);
             transform-origin: bottom left;
         }
+        /* Download button alignment */
+        #download-btn {
+            margin-left: auto !important; /* Forces button to align to the far right */
+            float: left;
+        }
+
         .button-ssss {
             display: flex !important;
-            flex-direction: row !important; /* Forces buttons into one single line */
-            gap: 8px !important;            /* Space between each button */
-            width: max-content !important;
-            grid-column: 1 / -1 !important;  /* Spans across full width if inside a grid */
-            box-sizing: border-box !important;
+            align-items: center !important;
+            margin-left: 0 !important;   /* Keeps it sitting right next to the summary/theme switch */
+            flex-shrink: 0 !important;   /* Prevents wrapping to a new line */
         }
 
         .button-ssss .btn {
-            flex: 1 !important;             /* Distributes equal width across all 3 buttons */
-            width: auto !important;         /* Allows flex to manage width */
-            max-width: 100% !important;
-            white-space: nowrap !important; /* Prevents button text from awkwardly breaking */
-            margin: 0 !important;
-            padding: 9px 9px !important;    /* Compact padding so text fits neatly on small screens */
-            font-size: 15px !important;     /* Slightly smaller font to keep everything on one line */
-            box-sizing: border-box !important;
+            padding: 0 18px !important;
+            font-size: 14px !important;
+            white-space: nowrap !important;
+            height: 38px !important;       /* Matches exact switch track height */
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50px;
         }
 
+        /* --- MOBILE ALIGNMENT --- */
+        @media (max-width: 1040px) {
+            .controls {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                border-radius: 20px;
+                padding: 16px 12px;
+                gap: 12px;
+                width: 100%;
+            }
+
+            .button-ssss {
+                grid-column: span 2 !important;
+                justify-self: end !important;
+                width: max-content !important;
+            }
+
+            .button-ssss .btn {
+                width: auto !important;
+            }
+        }
         .button-ssss .btn:hover {            /* Makes shorter button match the width of the longer button */
             box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.3);
             background-color: yellow;
@@ -686,8 +722,8 @@
 
     <div class="button-ssss">
         <button class="btn" id="download-btn"> ⤓ Download CV</button>
-<!--        <button class="btn" id="export-json-btn">📋 Save JSON</button>-->
-<!--        <button class="btn" id="export-ats-btn">📋 Copy ATS Text</button>-->
+        <!--        <button class="btn" id="export-json-btn">📋 Save JSON</button>-->
+        <!--        <button class="btn" id="export-ats-btn">📋 Copy ATS Text</button>-->
     </div>
 </div>
 
@@ -718,7 +754,7 @@
         <div class="section summary-section">
             <h2>Summary</h2>
             <p class="fadein_effect">Dedicated and experienced Software Engineer with a strong background in software development, specializing in frameworks such as Laravel, CodeIgniter, WordPress and Golang. With a proven track record of delivering high-quality web applications, I am adept at leveraging cutting-edge technologies to meet and exceed client expectations.<br>I have a speech impediment (stammering) and identify as a person with disability, which I believe has helped me develop patience, resilience, and strong written communication skills.
-            <span class="cv-only fadein_effect">I communicate best in structured or written formats and may take a bit more time in verbal conversations. I am particularly interested in opportunities with inclusive organizations that value diversity and accessibility.</span></p>
+                <span class="cv-only fadein_effect">I communicate best in structured or written formats and may take a bit more time in verbal conversations. I am particularly interested in opportunities with inclusive organizations that value diversity and accessibility.</span></p>
         </div>
 
         <!-- Professional Experience Block -->
@@ -905,28 +941,28 @@
             </div>
 
             <div class="project-item cv-only fadein_effect">
-                    <div class="project-title"><a href="https://agentroof.com" target="_blank" class="links">AgentRoof (agentroof.com) ↗</a></div>
-                    <p class="project-desc">Developed and maintained scalable web applications using Laravel, focusing on performance, security, and maintainability. Built dynamic and responsive user interfaces using JavaScript, jQuery, and AJAX to enhance user experience. Implemented backend logic for managing real estate listings, user interactions, and data workflows.</p>
-                    <div class="skills-grid">
-                        <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">JavaScript</span><span class="skill-badge">MySQL</span><span class="skill-badge">REST APIs</span>
-                    </div>
+                <div class="project-title"><a href="https://agentroof.com" target="_blank" class="links">AgentRoof (agentroof.com) ↗</a></div>
+                <p class="project-desc">Developed and maintained scalable web applications using Laravel, focusing on performance, security, and maintainability. Built dynamic and responsive user interfaces using JavaScript, jQuery, and AJAX to enhance user experience. Implemented backend logic for managing real estate listings, user interactions, and data workflows.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">JavaScript</span><span class="skill-badge">MySQL</span><span class="skill-badge">REST APIs</span>
                 </div>
+            </div>
 
-                <div class="project-item cv-only fadein_effect">
-                    <div class="project-title"><a href="https://gingertechnologies.in" target="_blank" class="links">Ginger CRM (gingertechnologies.in) ↗</a></div>
-                    <p class="project-desc">A customer relationship management solution developed by Ginger Technologies that helps businesses manage customer data, generate leads, and improve communication channels. Built Laravel CRM modules focusing on communication workflows, messaging systems (SMS/Email), and real-time interactive dashboards.</p>
-                    <div class="skills-grid">
-                        <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">AJAX</span><span class="skill-badge">MySQL</span>
-                    </div>
+            <div class="project-item cv-only fadein_effect">
+                <div class="project-title"><a href="https://gingertechnologies.in" target="_blank" class="links">Ginger CRM (gingertechnologies.in) ↗</a></div>
+                <p class="project-desc">A customer relationship management solution developed by Ginger Technologies that helps businesses manage customer data, generate leads, and improve communication channels. Built Laravel CRM modules focusing on communication workflows, messaging systems (SMS/Email), and real-time interactive dashboards.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">AJAX</span><span class="skill-badge">MySQL</span>
                 </div>
+            </div>
 
-                <div class="project-item cv-only fadein_effect">
-                    <div class="project-title"><a href="https://rupinis.com" target="_blank" class="links">Rupini’s (rupinis.com) ↗</a></div>
-                    <p class="project-desc">A well-established beauty and wellness booking platform blending traditional Ayurvedic treatments with modern techniques. Programmed appointment booking systems, calendar synchronization, and automated reminders using Laravel and cron jobs.</p>
-                    <div class="skills-grid">
-                        <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">MySQL</span><span class="skill-badge">JavaScript</span>
-                    </div>
+            <div class="project-item cv-only fadein_effect">
+                <div class="project-title"><a href="https://rupinis.com" target="_blank" class="links">Rupini’s (rupinis.com) ↗</a></div>
+                <p class="project-desc">A well-established beauty and wellness booking platform blending traditional Ayurvedic treatments with modern techniques. Programmed appointment booking systems, calendar synchronization, and automated reminders using Laravel and cron jobs.</p>
+                <div class="skills-grid">
+                    <span class="skill-badge">PHP</span><span class="skill-badge">Laravel</span><span class="skill-badge">MySQL</span><span class="skill-badge">JavaScript</span>
                 </div>
+            </div>
 
             <div class="project-item cv-only fadein_effect">
                 <div class="project-title"><a href="https://wyconarabia.com" target="_blank" class="links">WYCON Arabia (wyconarabia.com) ↗</a></div>
@@ -936,9 +972,9 @@
                 </div>
             </div>
 
-                <div class="portfolio-item fadein_effect">
-                    For full portfolio : <a href="https://manishtm.github.io/" target="_blank" class="links">manishtm.github.io/ ↗</a>
-                </div>
+            <div class="portfolio-item fadein_effect">
+                For full portfolio : <a href="https://manishtm.github.io/" target="_blank" class="links">manishtm.github.io/ ↗</a>
+            </div>
         </div>
 
     </div>
@@ -1125,7 +1161,7 @@
                 .trim();
 
             // Copy to clipboard & show feedback
-                navigator.clipboard.writeText(plainText).then(() => {
+            navigator.clipboard.writeText(plainText).then(() => {
                 const originalText = $(this).text();
                 $(this).text('📋 ATS Text copied!');
                 setTimeout(() => $(this).text(originalText), 2000);
